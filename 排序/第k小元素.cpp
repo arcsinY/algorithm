@@ -1,26 +1,30 @@
 #include <stdio.h>
 #include <string.h>
-int select(int* a, int low, int high, int k)  //´Óa[low]µ½a[high]ÖĞÑ¡³öµÚkĞ¡µÄÊı
+int select(int* a, int low, int high, int k)  //ä»a[low]åˆ°a[high]ä¸­é€‰å‡ºç¬¬kå°çš„æ•°
 {
 	int l = low;
 	int h = high;
 	int pivot = a[low];
-	while (l < h)
-	{
-		while (l < h && a[h] > pivot)
+	while (l < h) {
+		while (l < h && a[h] > pivot) {
 			--h;
+		}
 		a[l] = a[h];
-		while (l < h && a[l] < pivot)
+		while (l < h && a[l] < pivot) {
 			++l;
+		}
 		a[h] = a[l];
 	}
 	a[l] = pivot;
-	if (l - low + 1 == k)  //±ÈpivotĞ¡µÄÊıÓĞk-1¸ö£¬pivot¾ÍÊÇÒªÕÒµÄ
+	//æ¯”pivotå°çš„æ•°æœ‰k-1ä¸ªï¼Œpivotå°±æ˜¯è¦æ‰¾çš„
+	if (l - low + 1 == k) {
 		return pivot;
-	else if (l - low + 1 < k)  //±ÈpivotĞ¡µÄÊı²»µ½k-1¸ö£¬ÔÚÓÒ°ë²¿·ÖÑ°ÕÒ
-		return select(a, l + 1, high, k - (l - low + 1));
-	else
-		return select(a, low, l - 1, k);
+	}
+	//æ¯”pivotå°çš„æ•°ä¸åˆ°k-1ä¸ªï¼Œåœ¨å³åŠéƒ¨åˆ†å¯»æ‰¾
+	if (l - low + 1 < k)  {
+		return select(a, l + 1, high, k - (l - low + 1));	
+	}
+	return select(a, low, l - 1, k);
 }
 int main()
 {
